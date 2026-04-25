@@ -1,0 +1,6 @@
+{
+  "name": "Inercia",
+  "description": "An interactive WebGL experience using MediaPipe hand tracking to explore the concept of frustration fading into boredom through visual degradation.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": []
+}
