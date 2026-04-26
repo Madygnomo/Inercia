@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { DadaScene } from './components/3d/DadaScene';
 import { WebcamTracker } from './components/WebcamTracker';
 import { UIOverlay } from './components/UIOverlay';
+import { TextPhaseTwo } from './components/TextPhaseTwo';
+import { TextPhaseThree } from './components/TextPhaseThree';
 import { StartScreen } from './components/StartScreen';
 import { useStore } from './store';
 
@@ -81,37 +83,57 @@ export default function App() {
           <UIOverlay />
           
           <div 
-            className="w-full max-w-lg mt-[50vh] space-y-64 pb-[100vh] relative z-20 pointer-events-auto transition-opacity duration-300"
+            className="w-full max-w-3xl mt-[50vh] space-y-64 pb-[100vh] relative z-20 pointer-events-auto transition-opacity duration-300 px-4"
             style={{ opacity: scrollProgress < 0.05 || scrollProgress > 0.95 ? 0 : Math.sin(scrollProgress * Math.PI) }}
           >
             
-            <div className="p-8 bg-black/60 border border-white/10 backdrop-blur-md rounded-lg group hover:border-white/30 transition-colors cursor-pointer">
-                <p className="font-mono text-sm leading-relaxed text-white/70 group-hover:text-white transition-colors">
-                  <span className="text-cyan-500 mb-2 block">// Entrada de diario 01</span>
-                  Los colores se desvanecen cuando intento atraparlos. Sigo bajando, esperando encontrar el origen, pero el aburrimiento pesa y me hunde.
-                </p>
-                <div className="w-24 h-[1px] bg-white/20 mt-6 group-hover:bg-cyan-500/50 transition-colors"></div>
-            </div>
-
-            <div className="p-8 bg-black/60 border border-white/10 backdrop-blur-md rounded-lg group hover:border-white/30 transition-colors ml-16 cursor-pointer">
-                <div className="w-full aspect-video bg-zinc-900 mb-4 overflow-hidden rounded relative">
-                   {/* Placeholder for an interactive vertical gallery / gif */}
-                   <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Abstract glitch" className="w-full h-full object-cover opacity-50 mix-blend-luminosity group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-700"/>
-                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div className="p-8 bg-black/40 border border-white/5 backdrop-blur-md rounded-lg group hover:border-white/20 transition-colors ml-[-10%] flex flex-col md:flex-row items-center gap-8">
+                <div className="w-full md:w-5/12 aspect-square bg-zinc-900 overflow-hidden rounded-full relative filter grayscale group-hover:grayscale-0 transition-all duration-1000 shadow-[0_0_30px_rgba(0,255,255,0.1)] group-hover:shadow-[0_0_50px_rgba(0,255,255,0.3)]">
+                    <video src="/pupila.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
-                <p className="font-mono text-sm leading-relaxed text-white/70 group-hover:text-white transition-colors">
-                  El ruido estático es el único acompañante.<br/>
-                  Ya no hay rojos, ni azules. Solo memoria difusa.
+                <div className="w-full md:w-7/12">
+                  <p className="font-serif text-3xl leading-relaxed text-white/80 group-hover:text-white transition-colors">
+                    Este siglo, el reposo no es ausencia de movimiento.
+                  </p>
+                </div>
+            </div>
+
+            <div className="p-8 bg-black/40 border border-white/5 backdrop-blur-md rounded-lg group hover:border-white/20 transition-colors ml-[10%] flex flex-col md:flex-row-reverse items-center gap-8">
+                <div className="w-full md:w-1/2 aspect-[4/3] bg-zinc-900 overflow-hidden rounded relative filter grayscale group-hover:grayscale-0 transition-all duration-700 shadow-lg group-hover:shadow-cyan-500/10">
+                    <img src="/Pantalla.gif" alt="Cristal liquido" className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:opacity-100 transition-opacity duration-700" />
+                </div>
+                <div className="w-full md:w-1/2">
+                  <p className="font-serif text-3xl leading-relaxed text-white/80 group-hover:text-white transition-colors">
+                    Cada persona huye bajo un cristal líquido que hace percibir la libertad
+                  </p>
+                </div>
+            </div>
+
+            <div className="p-8 bg-black/40 border border-white/5 backdrop-blur-md rounded-lg group hover:border-white/20 transition-colors ml-[-5%] flex flex-col items-center gap-8 text-center">
+                <div className="w-full aspect-[21/9] bg-zinc-900 overflow-hidden rounded relative filter grayscale group-hover:grayscale-0 transition-all duration-700 shadow-xl">
+                    <img src="/colores.gif" alt="Colores abstractos" className="w-full h-full object-cover opacity-50 mix-blend-screen group-hover:opacity-100 transition-opacity duration-700" />
+                    <video src="/1.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-0 mix-blend-color-dodge group-hover:opacity-40 transition-opacity duration-1000" />
+                </div>
+                <p className="font-serif text-3xl leading-relaxed text-white/80 group-hover:text-white transition-colors">
+                  Newton no pudo prever que su ley de la inercia es hoy la de todos.
                 </p>
             </div>
 
-            <div className="p-8 bg-black/60 border border-white/10 backdrop-blur-md rounded-lg group hover:border-white/30 transition-colors -ml-16 cursor-pointer">
-                <p className="font-mono text-sm leading-relaxed text-white/70 group-hover:text-white transition-colors">
-                  <span className="text-pink-500 mb-2 block">// Sistema de comentarios encriptado...</span>
-                  No entiendo la inercia de esta máquina. Me pide interactuar pero al hacerlo... todo oscurece.
-                </p>
-                <input type="text" placeholder="Deja una huella..." className="mt-4 w-full bg-white/5 border border-white/10 p-3 text-xs font-mono text-white placeholder-white/30 outline-none focus:border-white/50 transition-colors" />
+            <div className="p-8 bg-black/40 border border-white/5 backdrop-blur-md rounded-lg group hover:border-white/20 transition-colors ml-[5%] flex flex-col md:flex-row items-center gap-8">
+                <div className="w-full md:w-1/2 shrink-0 aspect-[9/16] max-h-[60vh] bg-zinc-900 overflow-hidden rounded relative filter grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl">
+                    <video src="/notificaciones.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover opacity-80 mix-blend-screen group-hover:opacity-100 transition-opacity duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                </div>
+                <div className="w-full md:w-1/2">
+                  <p className="font-serif text-3xl leading-relaxed text-white/80 group-hover:text-white transition-colors">
+                    Su segunda ley se manifiesta en nosotros:<br/>
+                    <span className="font-mono text-xl text-cyan-400 mt-6 block p-4 border border-cyan-500/20 bg-cyan-500/5 rounded">Fuerza = Masa * Aceleración</span>
+                  </p>
+                </div>
             </div>
+
+            <TextPhaseTwo scrollProgress={scrollProgress} />
+            <TextPhaseThree scrollProgress={scrollProgress} />
 
           </div>
         </div>

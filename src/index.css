@@ -14,3 +14,12 @@ body {
   color: white;
   cursor: crosshair;
 }
+
+@layer utilities {
+  .text-stroke-1 {
+    -webkit-text-stroke-width: 1px;
+  }
+  .text-stroke-white {
+    -webkit-text-stroke-color: white;
+  }
+}
