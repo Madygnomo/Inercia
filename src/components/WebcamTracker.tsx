@@ -6,6 +6,7 @@ export const WebcamTracker: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const setWebcamReady = useStore((state) => state.setWebcamReady);
   const setHandPosition = useStore((state) => state.setHandPosition);
+  const useWebcam = useStore((state) => state.useWebcam);
 
   // We need to keep references for the animation loop
   const handLandmarkerRef = useRef<HandLandmarker | null>(null);
@@ -13,6 +14,8 @@ export const WebcamTracker: React.FC = () => {
   const isRunningRef = useRef<boolean>(false);
 
   useEffect(() => {
+    if (!useWebcam) return;
+
     let animationFrameId: number;
 
     const setupMediapipe = async () => {
@@ -78,8 +81,12 @@ export const WebcamTracker: React.FC = () => {
          const stream = videoRef.current.srcObject as MediaStream;
          stream.getTracks().forEach(track => track.stop());
       }
+      setWebcamReady(false);
+      setHandPosition(null);
     };
-  }, [setWebcamReady, setHandPosition]);
+  }, [useWebcam, setWebcamReady, setHandPosition]);
+
+  if (!useWebcam) return null;
 
   return (
     <div className="absolute bottom-16 right-16 w-64 h-48 border border-white/20 bg-zinc-900/80 backdrop-blur-md shadow-2xl overflow-hidden group transform rotate-2 z-50">

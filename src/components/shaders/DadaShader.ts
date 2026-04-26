@@ -70,21 +70,21 @@ export const DadaShaderMaterial = {
     uniform vec3 uColor;
     
     // Frustration = Memory * Boredom
-    // As uScrollDepth approaches 1, the colors fade to black.
+    // Scroll depth is 0.0 to 1.0. We want it pitch black at 0.0 and 1.0.
+    // It should bloom into color in the middle.
 
     void main() {
       // Base vibrant color mixed with elevation logic
       vec3 glitchColor = uColor + vec3(vElevation * 2.0, -vElevation, vElevation * 1.5);
       
-      // Calculate intensity based on scrolling down (scrollDepth 0 -> 1)
-      // When scroll is near 0, vibrancy is high. Near 1, it's pitch black.
-      float intensity = 1.0 - pow(uScrollDepth, 1.5); // non-linear fade to black
+      // Calculate intensity based on a sine wave (0 to PI)
+      float intensity = sin(uScrollDepth * 3.14159265);
       
       // Final color computation
       vec3 finalColor = mix(vec3(0.0, 0.0, 0.0), glitchColor, intensity);
       
       // Optional: Add some Dadaist CRT scanlines
-      float scanline = sin(vUv.y * 800.0 + uTime * 10.0) * 0.04 * (1.0 - uScrollDepth);
+      float scanline = sin(vUv.y * 800.0 + uTime * 10.0) * 0.04 * intensity;
       finalColor -= scanline;
 
       gl_FragColor = vec4(finalColor, 1.0);

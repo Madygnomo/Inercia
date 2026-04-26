@@ -2,11 +2,15 @@ import React, { useRef, useEffect } from 'react';
 import { DadaScene } from './components/3d/DadaScene';
 import { WebcamTracker } from './components/WebcamTracker';
 import { UIOverlay } from './components/UIOverlay';
+import { StartScreen } from './components/StartScreen';
 import { useStore } from './store';
 
 export default function App() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const setScrollProgress = useStore((state) => state.setScrollProgress);
+  const scrollProgress = useStore((state) => state.scrollProgress);
+  const hasStarted = useStore((state) => state.hasStarted);
+  const useWebcam = useStore((state) => state.useWebcam);
 
   // Sync scroll progress reading
   const handleScroll = () => {
@@ -23,22 +27,25 @@ export default function App() {
     let animationFrameId: number;
 
     const updateScrollFromHand = () => {
-      const currentHand = useStore.getState().handPosition;
-      
-      if (currentHand && scrollContainerRef.current) {
-        // Hand Y is 0 (top) to 1 (bottom)
-        const y = currentHand.y;
-        const scrollSpeedBase = 25;
+      // Only process hand scroll if webcam is enabled and experience has started
+      if (useStore.getState().useWebcam && useStore.getState().hasStarted) {
+        const currentHand = useStore.getState().handPosition;
+        
+        if (currentHand && scrollContainerRef.current) {
+          // Hand Y is 0 (top) to 1 (bottom)
+          const y = currentHand.y;
+          const scrollSpeedBase = 25;
 
-        // If hand is in the lower 40% -> Scroll Down
-        if (y > 0.6) {
-          const intensity = (y - 0.6) / 0.4;
-          scrollContainerRef.current.scrollTop += scrollSpeedBase * intensity;
-        } 
-        // If hand is in the upper 40% -> Scroll Up
-        else if (y < 0.4) {
-          const intensity = (0.4 - y) / 0.4;
-          scrollContainerRef.current.scrollTop -= scrollSpeedBase * intensity;
+          // If hand is in the lower 40% -> Scroll Down
+          if (y > 0.6) {
+            const intensity = (y - 0.6) / 0.4;
+            scrollContainerRef.current.scrollTop += scrollSpeedBase * intensity;
+          } 
+          // If hand is in the upper 40% -> Scroll Up
+          else if (y < 0.4) {
+            const intensity = (0.4 - y) / 0.4;
+            scrollContainerRef.current.scrollTop -= scrollSpeedBase * intensity;
+          }
         }
       }
 
@@ -51,7 +58,10 @@ export default function App() {
   }, []);
 
   return (
-    <div className="w-full h-full relative font-sans overflow-hidden bg-black text-white flex flex-col items-center justify-center">
+    <div className="w-full h-screen relative font-sans overflow-hidden bg-black text-white flex flex-col items-center justify-center">
+      
+      {!hasStarted && <StartScreen />}
+
       <div className="fixed top-0 left-0 w-full h-1/2 bg-gradient-to-b from-purple-900/40 via-blue-900/20 to-transparent pointer-events-none opacity-60 z-0"></div>
       
       <div className="fixed inset-0 z-0">
@@ -70,7 +80,10 @@ export default function App() {
         <div className="w-full min-h-[1000vh] flex flex-col items-center">
           <UIOverlay />
           
-          <div className="w-full max-w-lg mt-[50vh] space-y-64 pb-[100vh] relative z-20 pointer-events-auto">
+          <div 
+            className="w-full max-w-lg mt-[50vh] space-y-64 pb-[100vh] relative z-20 pointer-events-auto transition-opacity duration-300"
+            style={{ opacity: scrollProgress < 0.05 || scrollProgress > 0.95 ? 0 : Math.sin(scrollProgress * Math.PI) }}
+          >
             
             <div className="p-8 bg-black/60 border border-white/10 backdrop-blur-md rounded-lg group hover:border-white/30 transition-colors cursor-pointer">
                 <p className="font-mono text-sm leading-relaxed text-white/70 group-hover:text-white transition-colors">

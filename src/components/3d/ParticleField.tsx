@@ -42,18 +42,18 @@ export const ParticleField: React.FC<{ count: number, startY: number, endY: numb
       // Rotación suave global de las partículas
       pointsRef.current.rotation.y += delta * 0.05;
 
-      // Hacemos que la opacidad del material de partículas baje a medida que el scroll baja
+      // Hacemos que la opacidad del material de partículas baje en los extremos del scroll (0 y 1)
       const mat = pointsRef.current.material as THREE.PointsMaterial;
-      const targetOpacity = 1.0 - Math.pow(scrollProgress, 1.5);
+      const targetOpacity = Math.sin(scrollProgress * Math.PI); // 0 at top, 1 at middle, 0 at bottom
       
       // Interpolación suave para el color y la opacidad
-      mat.opacity = THREE.MathUtils.lerp(mat.opacity, targetOpacity, 0.1);
+      mat.opacity = THREE.MathUtils.lerp(mat.opacity, Math.max(0.0, targetOpacity), 0.1);
       
-      // Si el scroll está casi al 100% (fondo), todo es negro
-      if (scrollProgress > 0.9) {
-          mat.color.lerp(new THREE.Color(0x000000), 0.05);
+      // Si el scroll está casi al 0% o 100% (fondo), todo es negro
+      if (scrollProgress < 0.05 || scrollProgress > 0.95) {
+          mat.color.lerp(new THREE.Color(0x000000), 0.1);
       } else {
-          mat.color.setHex(0xffffff);
+          mat.color.lerp(new THREE.Color(0xffffff), 0.05);
       }
     }
   });
