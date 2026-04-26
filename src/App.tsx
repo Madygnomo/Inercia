@@ -66,7 +66,8 @@ export default function App() {
         onScroll={handleScroll}
         className="absolute inset-0 z-10 overflow-x-hidden overflow-y-auto"
       >
-        <div className="w-full min-h-[500vh] flex flex-col items-center">
+        {/* Much taller container for a long journey -> min-h-[1000vh] gives us 10 viewport heights to scroll */}
+        <div className="w-full min-h-[1000vh] flex flex-col items-center">
           <UIOverlay />
           
           <div className="w-full max-w-lg mt-[50vh] space-y-64 pb-[100vh] relative z-20 pointer-events-auto">
