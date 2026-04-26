@@ -57,7 +57,10 @@ export const TextPhaseTwo: React.FC<TextPhaseTwoProps> = ({ scrollProgress }) =>
       </div>
 
       {/* 5. Parálisis Absoluta */}
-      <div className="relative h-[40vh] w-[100vw] left-1/2 -translate-x-1/2 flex items-center overflow-hidden z-10 bg-white/5 backdrop-blur-sm -rotate-3">
+      <div className="relative min-h-[40vh] w-[100vw] left-1/2 -translate-x-1/2 flex items-center overflow-hidden z-10 bg-white/5 backdrop-blur-sm -rotate-3 overflow-visible">
+        <div className="absolute inset-0 -z-10 mix-blend-screen opacity-40 overflow-hidden">
+          <video src="/Cabeza llena de _letras_.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover grayscale blur-[2px]" />
+        </div>
         <div 
           className="font-black text-6xl md:text-8xl text-white/10 uppercase whitespace-nowrap absolute"
           style={{ transform: `translateX(${-100 + (scrollProgress * 1000)}px)` }} // moving left to right

@@ -40,6 +40,9 @@ export const TextPhaseThree: React.FC<TextPhaseThreeProps> = ({ scrollProgress }
         {/* El contenido nos está consumiendo a nosotros. */}
         <div className="relative min-h-[60vh] w-full flex items-center justify-center overflow-visible">
             <div className="absolute inset-0 bg-red-900/10 blur-3xl -z-10 rounded-full" style={{ transform: `scale(${1 + Math.sin(scrollProgress * 20)})` }} />
+            <div className="absolute inset-0 -z-20 mix-blend-screen opacity-40 flex items-center justify-center overflow-hidden">
+              <video src="/neuro.mp4" autoPlay loop muted playsInline className="w-full h-full md:w-[60%] object-cover contrast-150 saturate-200" style={{ transform: `rotate(${Math.sin(scrollProgress * 15) * 10}deg)` }} />
+            </div>
              <p 
                 className="font-black text-6xl md:text-[7rem] text-red-600 leading-none text-center uppercase mix-blend-color-dodge transition-transform duration-700 px-4 w-[120%]"
                 style={{ transform: `scale(${0.8 + Math.sin(scrollProgress * Math.PI) * 0.4})` }}
@@ -49,20 +52,25 @@ export const TextPhaseThree: React.FC<TextPhaseThreeProps> = ({ scrollProgress }
         </div>
 
         {/* Nos volvemos una máquina de casino. */}
-        <div className="relative min-h-[40vh] w-full flex flex-col items-center justify-center gap-12 mt-[10vh]">
-            <div className="flex gap-4 md:gap-8 bg-zinc-900/50 p-8 rounded-3xl border border-yellow-500/20 backdrop-blur-md">
+        <div className="relative min-h-[60vh] w-full flex flex-col items-center justify-center gap-12 mt-[10vh]">
+            <div className="absolute inset-0 -z-30 overflow-hidden opacity-30 mix-blend-lighten flex">
+                <video src="/Casino vide.mp4" autoPlay loop muted playsInline className="w-1/2 h-full object-cover" />
+                <video src="/casino 1.mp4" autoPlay loop muted playsInline className="w-1/2 h-full object-cover scale-x-[-1]" />
+            </div>
+
+            <div className="flex gap-4 md:gap-8 bg-zinc-900/80 p-8 rounded-3xl border border-yellow-500/40 backdrop-blur-xl shadow-[0_0_50px_rgba(255,215,0,0.2)]">
               {/* Slot machine effect */}
               {[1, 2, 3].map((i) => (
-                <div key={i} className="w-20 h-28 md:w-32 md:h-48 bg-black border-4 border-yellow-500/50 rounded-xl flex items-center justify-center overflow-hidden relative shadow-[0_0_30px_rgba(255,215,0,0.15)]">
+                <div key={i} className="w-20 h-28 md:w-32 md:h-48 bg-black border-4 border-yellow-500/50 rounded-xl flex items-center justify-center overflow-hidden relative shadow-[inset_0_0_20px_rgba(255,215,0,0.3)]">
                     <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80 z-20 pointer-events-none" />
-                    <div className="absolute inset-0" style={{ transform: `translateY(${(Math.sin(scrollProgress * 200 + i * 10) * 150)}%)` }}>
-                        <div className="h-full flex items-center justify-center font-black text-6xl md:text-8xl text-yellow-400 blur-[2px] opacity-80">7</div>
+                    <div className="absolute inset-0 flex flex-col items-center" style={{ transform: `translateY(${(Math.sin(scrollProgress * 200 + i * 10) * 150)}%)` }}>
+                         <img src="/Casino.png" alt="Casino Slot" className="h-[200%] w-auto object-cover opacity-90 blur-[1px]" style={{ filter: 'drop-shadow(0 0 10px rgba(255,255,0,0.8))' }} />
                     </div>
                 </div>
               ))}
             </div>
-            <p className="font-sans font-black text-2xl md:text-4xl text-yellow-500/80 uppercase tracking-widest text-center">
-              Nos volvemos una<br/><span className="text-white text-3xl md:text-5xl mt-2 block">máquina de casino.</span>
+            <p className="font-sans font-black text-2xl md:text-5xl text-yellow-500/90 uppercase tracking-widest text-center shadow-black drop-shadow-[0_5px_5px_rgba(0,0,0,1)]">
+              Nos volvemos una<br/><span className="text-white text-4xl md:text-7xl mt-4 block">máquina de casino.</span>
             </p>
         </div>
 

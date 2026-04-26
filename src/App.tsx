@@ -5,6 +5,7 @@ import { UIOverlay } from './components/UIOverlay';
 import { TextPhaseTwo } from './components/TextPhaseTwo';
 import { TextPhaseThree } from './components/TextPhaseThree';
 import { StartScreen } from './components/StartScreen';
+import { AudioManager } from './components/AudioManager';
 import { useStore } from './store';
 
 export default function App() {
@@ -63,6 +64,7 @@ export default function App() {
     <div className="w-full h-screen relative font-sans overflow-hidden bg-black text-white flex flex-col items-center justify-center">
       
       {!hasStarted && <StartScreen />}
+      <AudioManager />
 
       <div className="fixed top-0 left-0 w-full h-1/2 bg-gradient-to-b from-purple-900/40 via-blue-900/20 to-transparent pointer-events-none opacity-60 z-0"></div>
       
@@ -100,7 +102,7 @@ export default function App() {
 
             <div className="p-8 bg-black/40 border border-white/5 backdrop-blur-md rounded-lg group hover:border-white/20 transition-colors ml-[10%] flex flex-col md:flex-row-reverse items-center gap-8">
                 <div className="w-full md:w-1/2 aspect-[4/3] bg-zinc-900 overflow-hidden rounded relative filter grayscale group-hover:grayscale-0 transition-all duration-700 shadow-lg group-hover:shadow-cyan-500/10">
-                    <img src="/Pantalla.gif" alt="Cristal liquido" className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:opacity-100 transition-opacity duration-700" />
+                    <video src="/pantalla 2.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
                 <div className="w-full md:w-1/2">
                   <p className="font-serif text-3xl leading-relaxed text-white/80 group-hover:text-white transition-colors">
@@ -112,7 +114,7 @@ export default function App() {
             <div className="p-8 bg-black/40 border border-white/5 backdrop-blur-md rounded-lg group hover:border-white/20 transition-colors ml-[-5%] flex flex-col items-center gap-8 text-center">
                 <div className="w-full aspect-[21/9] bg-zinc-900 overflow-hidden rounded relative filter grayscale group-hover:grayscale-0 transition-all duration-700 shadow-xl">
                     <img src="/colores.gif" alt="Colores abstractos" className="w-full h-full object-cover opacity-50 mix-blend-screen group-hover:opacity-100 transition-opacity duration-700" />
-                    <video src="/1.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-0 mix-blend-color-dodge group-hover:opacity-40 transition-opacity duration-1000" />
+                    <video src="/Newton.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-color-dodge group-hover:opacity-80 transition-opacity duration-1000" />
                 </div>
                 <p className="font-serif text-3xl leading-relaxed text-white/80 group-hover:text-white transition-colors">
                   Newton no pudo prever que su ley de la inercia es hoy la de todos.
